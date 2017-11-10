@@ -3,14 +3,14 @@
 # IF a user requests an item that you don't have, then return a 400 and an error message
 class Application
 
-  @@items = [Item.new("tofu", 5.00), Item.new("Apples", 3.99)]
+  @@items = [Item.new("Figs",3.42), Item.new("Pears",0.99)]
 
   def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
     if req.path.match(/items/)
-      item.name = req.path.split("/items/").last
+      @item.name = req.path.split("/items/").last
         if item = @@items.find do |item|
           item.name == item_name
           resp.write "#{item.price}"
