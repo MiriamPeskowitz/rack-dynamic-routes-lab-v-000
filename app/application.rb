@@ -3,7 +3,8 @@
 # IF a user requests an item that you don't have, then return a 400 and an error message
 class Application
 
-  @@items = ["Apples","Carrots","Pears"]
+  @@items = [Item.new("tofu", 5.00), Item.new("Apples", 3.99)]
+  
   @@cart = []
 
   def call(env)
@@ -20,13 +21,13 @@ class Application
 
 
     elsif req.path.match(/cart/)
-      if @@cart.empty? 
-        resp.write "Your cart is empty" 
-      else 
+      if @@cart.empty?
+        resp.write "Your cart is empty"
+      else
         @@cart.each do |item|
           resp.write "#{item}\n"
-        end 
-      end 
+        end
+      end
 
     elsif req.path.match(/add/)
       item_to_add = req.params["item"]
@@ -35,7 +36,7 @@ class Application
         resp.write "added #{item_to_add}"
       else
         resp.write "We don't have that item."
-      end 
+      end
 
     else
       resp.write "Path Not Found"
